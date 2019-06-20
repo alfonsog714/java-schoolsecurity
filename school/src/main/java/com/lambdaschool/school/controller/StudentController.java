@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -68,6 +69,7 @@ public class StudentController
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation(value = "Adds a new students to the database", response = void.class)
     @PostMapping(value = "/Student",
                  consumes = {"application/json"},
@@ -87,6 +89,8 @@ public class StudentController
     }
 
 
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation(value = "Updates an existing student", response = void.class)
     @PutMapping(value = "/Student/{Studentid}")
     public ResponseEntity<?> updateStudent(
@@ -100,6 +104,7 @@ public class StudentController
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation(value = "Deletes an existing student", response = void.class)
     @DeleteMapping("/Student/{Studentid}")
     public ResponseEntity<?> deleteStudentById(

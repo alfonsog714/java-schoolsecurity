@@ -6,6 +6,7 @@ import com.lambdaschool.school.view.CountStudentsInCourses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class CourseController
         return new ResponseEntity<>(courseService.getCountStudentsInCourse(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/courses/{courseid}")
     public ResponseEntity<?> deleteCourseById(@PathVariable long courseid)
     {
